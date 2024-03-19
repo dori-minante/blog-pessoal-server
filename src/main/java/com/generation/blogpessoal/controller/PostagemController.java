@@ -20,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.generation.blogpessoal.model.Postagem;
 import com.generation.blogpessoal.repository.PostagemRepository;
+import com.generation.blogpessoal.repository.TemaRepository;
 
 import jakarta.validation.Valid;
 
@@ -30,6 +31,9 @@ public class PostagemController {
 
 	@Autowired
 	private PostagemRepository postagemRepository;
+
+	@Autowired
+	private TemaRepository temaRepository;
 
 	@GetMapping
 	public ResponseEntity<List<Postagem>> getAll() {
@@ -48,9 +52,18 @@ public class PostagemController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Postagem> post(@Valid @RequestBody Postagem postagem) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(postagemRepository.save(postagem));
-	}
+	   public ResponseEntity<Postagem> post(@Valid @RequestBody Postagem postagem) {
+        if (postagem.getTema() != null && postagem.getTema().getId() != null) {
+            var tema = temaRepository.findById(postagem.getTema().getId())
+                                      .orElseThrow(() -> new RuntimeException("Tema não encontrado com ID: " + postagem.getTema().getId()));
+
+            postagem.setTema(tema);
+        }
+        
+        Postagem salvarPostagem = postagemRepository.save(postagem);
+        
+        return ResponseEntity.status(HttpStatus.CREATED).body(salvarPostagem);
+    }
 
 	@PutMapping
 	public ResponseEntity<Postagem> put(@Valid @RequestBody Postagem postagem) {
