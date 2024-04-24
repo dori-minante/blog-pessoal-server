@@ -14,3 +14,11 @@
 - Java;
 - Spring Boot;
 - MySQL.
+
+## <img align="center" src="https://i.imgur.com/YMtRdEm.gif" width="28" height="28"> Rodando o projeto
+
+Para rodar o projeto, é necessário cloná-lo, copie o código abaixo para rodar na sua IDE favorita:
+
+```
+git clone https://github.com/dori-minante/blog-pessoal-server.git
+```
