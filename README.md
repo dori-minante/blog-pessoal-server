@@ -1,4 +1,4 @@
-<h1 align="center">:memo:Blog Pessoal:memo:</h1>
+<h1 align="center">:memo:Blog Pessoal</h1>
 <Br>
 
 ## :memo: Descrição
